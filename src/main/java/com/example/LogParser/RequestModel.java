@@ -29,7 +29,7 @@ public class RequestModel {
         if (responseCode == null)
             return false;
 
-        return responseCode.startsWith("2") || responseCode.startsWith("3");
+        return responseCode.matches("[2,3]\\d{2}");
     }
 
     /**
