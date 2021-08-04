@@ -19,12 +19,12 @@ class LogController {
         LogParser parser = new LogParser();
         List<RequestModel> result = parser.unZipFile(bytes);
 
-        StatisticsCalculator.fillBasicInfo(result, data);
-        StatisticsCalculator.sortResourcesByFrequency(data);
-        StatisticsCalculator.sortHostsByRequestFrequency(data);
-        StatisticsCalculator.getAllRequestsForTopHosts(data);
-        StatisticsCalculator.getFrequentlyFailingResources(data);
-        StatisticsCalculator.getFrequentRequestsPerHost(data);
+        data = StatisticsCalculator.createBaseDataHolder(result);
+        data.resourcesSortedByFrequency = StatisticsCalculator.sortResourcesByFrequency(data.resourceCallCount);
+        data.hostsSortedByCallFrequency = StatisticsCalculator.sortHostsByRequestFrequency(data.requestsPerHost);
+        data.top10HostResources = StatisticsCalculator.getAllRequestsForTopHosts(data.hostsSortedByCallFrequency);
+        data.top10FailedResources = StatisticsCalculator.getFrequentlyFailingResources(data.resourcesSortedByFrequency);
+        data.top10HostRequests = StatisticsCalculator.getFrequentRequestsPerHost(data.top10HostResources);
     }
 
     @GetMapping("/logs")
