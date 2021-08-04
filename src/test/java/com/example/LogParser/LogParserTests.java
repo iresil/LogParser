@@ -82,6 +82,18 @@ public class LogParserTests {
     }
 
     @Test
+    void parseEntry404_ReturnsNewRequestModel() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        LogParser parser = new LogParser();
+        Method method = parser.getClass().getDeclaredMethod("parseEntry", String.class );
+        method.setAccessible(true);
+        String input = "199.1.60.95 - - [13/Aug/1995:21:48:56 -0400] \"GET /://spacelink.msfc.nasa.gov HTTP/1.0\" 404 -";
+
+        Object result = method.invoke(parser, input);
+
+        assertThat(result.getClass().equals(new RequestModel()));
+    }
+
+    @Test
     void parseEntryValidInput_ReturnsValidRequestModel() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         LogParser parser = new LogParser();
         Method method = parser.getClass().getDeclaredMethod("parseEntry", String.class );

@@ -21,9 +21,10 @@ class LogController {
 
         data = StatisticsCalculator.createBaseDataHolder(result);
         data.resourcesSortedByFrequency = StatisticsCalculator.sortResourcesByFrequency(data.resourceCallCount);
+        data.failedResourcesSortedByFrequency = StatisticsCalculator.sortFailedResourcesByFrequency(data.resourceFailCount);
         data.hostsSortedByCallFrequency = StatisticsCalculator.sortHostsByRequestFrequency(data.requestsPerHost);
         data.top10HostResources = StatisticsCalculator.getAllRequestsForTopHosts(data.hostsSortedByCallFrequency);
-        data.top10FailedResources = StatisticsCalculator.getFrequentlyFailingResources(data.resourcesSortedByFrequency);
+        data.top10FailedResources = StatisticsCalculator.getFrequentlyFailingResources(data.failedResourcesSortedByFrequency);
         data.top10HostRequests = StatisticsCalculator.getFrequentRequestsPerHost(data.top10HostResources);
     }
 

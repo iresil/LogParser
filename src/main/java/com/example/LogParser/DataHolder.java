@@ -1,19 +1,17 @@
 package com.example.LogParser;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DataHolder {
     /**
      * How many times each resource was called
      */
-    HashMap<String, Integer> resourceCallCount = new HashMap();
+    HashMap<String, Integer> resourceCallCount = new HashMap<>();
 
     /**
      * Which requests were made per host
      */
-    HashMap<String, List<String>> requestsPerHost = new HashMap();
+    HashMap<String, List<String>> requestsPerHost = new HashMap<>();
 
     /**
      * The total number of requests performed
@@ -26,9 +24,19 @@ public class DataHolder {
     Integer successfulRequests = 0;
 
     /**
+     * How many times each resource request failed
+     */
+    HashMap<String, Integer> resourceFailCount = new HashMap<>();
+
+    /**
      * How many times each resource was called, sorted by frequency descending
      */
     List<Map.Entry> resourcesSortedByFrequency;
+
+    /**
+     * How many times each resource was called and failed, sorted by failure frequency descending
+     */
+    List<Map.Entry> failedResourcesSortedByFrequency;
 
     /**
      * Which requests were made per host, sorted by frequency descending
@@ -48,5 +56,5 @@ public class DataHolder {
     /**
      * How frequently each resource gets called, for the top 10 hosts
      */
-    HashMap<String, List<Map.Entry>> top10HostRequests = new HashMap();
+    HashMap<String, List<Map.Entry>> top10HostRequests = new HashMap<>();
 }

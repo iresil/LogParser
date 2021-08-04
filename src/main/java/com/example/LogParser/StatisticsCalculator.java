@@ -8,7 +8,8 @@ public class StatisticsCalculator {
      * Loops through all parsed RequestModels and retrieves the number of times each resource was called,
      * all requests that were made per host and the number of successful requests.
      * @param input A List of parsed RequestModels
-     * @return A DataHolder object with its allRequests, resourceCallCount, requestsPerHost and successfulRequests fields already filled
+     * @return A DataHolder object with its allRequests, resourceCallCount, resourceFailCount, requestsPerHost
+     * and successfulRequests fields already filled
      */
     public static DataHolder createBaseDataHolder(List<RequestModel> input) {
         DataHolder output = new DataHolder();
@@ -23,6 +24,8 @@ public class StatisticsCalculator {
 
             if (rm.isSuccessful()) {
                 output.successfulRequests++;
+            } else {
+                output.resourceFailCount.put(rm.resource, output.resourceFailCount.getOrDefault(rm.resource, 0) + 1);
             }
         }
         return output;
@@ -43,6 +46,23 @@ public class StatisticsCalculator {
             }
         }));
         return resourcesSortedByFrequency;
+    }
+
+    /**
+     * Sorts the resources contained in resourceCallCount by number of calls performed
+     * @param resourceFailCount A HashMap of Strings and Integers containing the number of times each resource was called and failed
+     * @return A List of Entries containing Strings and Integers, sorted by the Integer values, descending
+     */
+    public static List<Map.Entry> sortFailedResourcesByFrequency(HashMap<String,Integer> resourceFailCount) {
+        List<Map.Entry> failedResourcesSortedByFrequency = new ArrayList<>();
+        failedResourcesSortedByFrequency = new ArrayList<>(resourceFailCount.entrySet());
+        Collections.sort(failedResourcesSortedByFrequency, Comparator.nullsLast(new Comparator<>() {
+            @Override
+            public int compare(Map.Entry e1, Map.Entry e2) {
+                return (Integer)e2.getValue() - (Integer)e1.getValue();
+            }
+        }));
+        return failedResourcesSortedByFrequency;
     }
 
     /**
@@ -72,18 +92,19 @@ public class StatisticsCalculator {
 
     /**
      * Retrieves the top 10 most often failing resources
-     * @param resourcesSortedByFrequency A List of Entries containing Strings and Integers, sorted by the Integer values, descending
+     * @param failedResourcesSortedByFrequency A List of Entries containing Strings and Integers, sorted by the Integer values, descending
      * @return The first 10 values that contain failed requests
      */
-    public static String[] getFrequentlyFailingResources(List<Map.Entry> resourcesSortedByFrequency) {
+    public static String[] getFrequentlyFailingResources(List<Map.Entry> failedResourcesSortedByFrequency) {
         String[] top10FailedResources = new String[10];
         int i = 0;
-        for (Map.Entry resource : resourcesSortedByFrequency) {
-            if (i < 10 && !Arrays.stream(top10FailedResources).anyMatch(x -> x == resource.getKey())) {
-                top10FailedResources[i] = (String)resource.getKey();
+        for (Map.Entry res : failedResourcesSortedByFrequency) {
+            if (i < 10 && !Arrays.stream(top10FailedResources).anyMatch(x -> x == res.getKey())) {
+                top10FailedResources[i] = (String) res.getKey();
                 i++;
             }
         }
+
         return top10FailedResources;
     }
 
