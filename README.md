@@ -36,9 +36,10 @@ Summary including all the information mentioned above, added for testing.
 - [JSON Small and Fast Parser](https://mvnrepository.com/artifact/net.minidev/json-smart)
 
 ## Assumptions
+- We care about the speed of each response more than we care about having updated data, thus the log file is downloaded and unzipped only once, during application start.
+- The application should not start if the log file can't be retrieved.
 - Requests that can't be parsed are considered failed requests for the purposes of failed percentage calculation.
 - A hostname/IP is considered invalid if it couldn't be parsed or it doesn't contain the '.' character at least once (e.g. *remote50.compusmart.ab.ca* and *128.159.146.92* are both valid, but *\derec* is not)
 - HTTP verbs, resources and response codes are considered invalid if they couldn't be parsed correctly.
-- The log file is downloaded and unzipped only once, during application start. The application will not start if the log file can't be retrieved.
-- When the "top X" is mentioned, it refers to the appearance frequency within the log file.
+- When the "top X" is mentioned, it refers to the appearance frequency of that parameter within the log file.
 - Percentages are calculated in relation to the total number of requests, regardless if they could be parsed correctly or not.
