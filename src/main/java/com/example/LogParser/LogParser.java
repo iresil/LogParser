@@ -45,7 +45,7 @@ public class LogParser {
      * @return A RequestModel containing the request parameters
      */
     private RequestModel parseEntry(String input) {
-        String logEntryPattern = "([^\\s]*)\\s-\\s-\\s\\[[^\\]]*\\]\\s\"([A-Z]*)\\s([^\\s]*)\\s([^\"]*)\"\\s([0-9]*)\\s(.*)";
+        String logEntryPattern = "([^\\s]+)\\s-\\s-\\s\\[[^\\]]+\\]\\s\"([A-Z]+)\\s([^\\s]+)\\s([^\"]+)\"\\s([0-9]+)\\s(.+)";
         Pattern p = Pattern.compile(logEntryPattern);
         Matcher matcher = p.matcher(input);
 
