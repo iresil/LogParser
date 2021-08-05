@@ -21,6 +21,15 @@ public class RequestModel {
      */
     String responseCode;
 
+    RequestModel() { }
+
+    RequestModel(String host, String httpVerb, String resource, String responseCode) {
+        this.host = host;
+        this.httpVerb = httpVerb;
+        this.resource = resource;
+        this.responseCode = responseCode;
+    }
+
     /**
      * Checks whether the request was successful or not
      * @return True if successful
