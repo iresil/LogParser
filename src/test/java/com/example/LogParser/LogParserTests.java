@@ -9,11 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-
 @SpringBootTest
 public class LogParserTests {
     @Test
-    void parseEntryNullInput_ReturnsNewRequestModel() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    void parseEntryNullInput_ThrowsException() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         LogParser parser = new LogParser();
         Method method = parser.getClass().getDeclaredMethod("parseEntry", String.class );
         method.setAccessible(true);

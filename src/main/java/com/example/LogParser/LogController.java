@@ -29,16 +29,16 @@ class LogController {
     }
 
     @GetMapping("/logs")
-    JSONArray logs() {
-        JSONArray jsonArray = new JSONArray();
-        jsonArray.add(getMostRequestedResources());
-        jsonArray.add(getSuccessfulRequestPercentage());
-        jsonArray.add(getFailedRequestPercentage());
-        jsonArray.add(getFrequentlyFailingResources());
-        jsonArray.add(getFrequentlyAppearingHosts());
-        jsonArray.add(getFrequentRequestsForFrequentlyAppearingHosts());
+    JSONObject logs() {
+        JSONObject object = new JSONObject();
+        object.appendField("most requested", getMostRequestedResources());
+        object.appendField("successful", getSuccessfulRequestPercentage());
+        object.appendField("failed", getFailedRequestPercentage());
+        object.appendField("frequent resources", getFrequentlyFailingResources());
+        object.appendField("frequent hosts", getFrequentlyAppearingHosts());
+        object.appendField("frequent requests for frequent hosts", getFrequentRequestsForFrequentlyAppearingHosts());
 
-        return jsonArray;
+        return object;
     }
 
     @GetMapping("/top10Resources")
