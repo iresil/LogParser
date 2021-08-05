@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.minidev.json.JSONObject;
 
+import java.text.NumberFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -58,15 +59,21 @@ class LogController {
     @GetMapping("/successPercentage")
     JSONObject getSuccessfulRequestPercentage() {
         JSONObject successfulPercentage = new JSONObject();
-        successfulPercentage.appendField("successful request percentage", (data.successfulRequests * 1.0 / data.allRequests) * 100);
+        NumberFormat nf = NumberFormat.getInstance(Locale.US);
+        nf.setMaximumFractionDigits(3);
+        Double percentage = (data.successfulRequests * 1.0 / data.allRequests) * 100;
+        successfulPercentage.appendField("successful request percentage", nf.format(percentage));
         return successfulPercentage;
     }
 
     @GetMapping("/failPercentage")
     JSONObject getFailedRequestPercentage() {
         JSONObject failedPercentage = new JSONObject();
+        NumberFormat nf = NumberFormat.getInstance(Locale.US);
+        nf.setMaximumFractionDigits(3);
         int failedRequests = data.allRequests - data.successfulRequests;
-        failedPercentage.appendField("failed request percentage", ((failedRequests) * 1.0 / data.allRequests) * 100);
+        Double percentage = ((failedRequests) * 1.0 / data.allRequests) * 100;
+        failedPercentage.appendField("failed request percentage", nf.format(percentage));
         return failedPercentage;
     }
 
