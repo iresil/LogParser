@@ -2,10 +2,13 @@
 Small project created in Java 11 and Spring Boot 2.5.3, which downloads the log file found in [ftp://ita.ee.lbl.gov/traces/NASA_access_log_Aug95.gz](ftp://ita.ee.lbl.gov/traces/NASA_access_log_Aug95.gz),
 parses it, and generates statistics regarding the requests.
 
+> [!NOTE]
+> This project was created as a take-home assessment for a job interview. I got the job.
+
 Statistics are accessible via a REST API, which returns each set of information in JSON format.
 
 ## Usage
-When the application starts, a "***Performing FTP request ...***" message is written to the console.
+When the application starts, a "***Performing FTP request ...***" message is printed to the console.
 As long as this is the last thing that is displayed, the log file is still being downloaded and parsed and the application hasn't started.
 
 As soon as the FTP request finishes, an "***FTP request completed***" message is written to the console.
@@ -31,7 +34,7 @@ Sets of 5 requests selected for their frequency, performed by the top 10 hosts i
 Summary including all the information mentioned above, added for testing.
 
 ## Dependencies
-- [Spring Web](https://mvnrepository.com/artifact/org.springframework/spring-web)
+- [Spring Boot](https://mvnrepository.com/artifact/org.springframework.boot)
 - [Apache Commons Net 3.8](https://mvnrepository.com/artifact/commons-net/commons-net/3.8.0)
 - [JSON Small and Fast Parser](https://mvnrepository.com/artifact/net.minidev/json-smart)
 
