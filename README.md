@@ -1,9 +1,11 @@
 # LogParser
-Small project created in Java 11 and Spring Boot 2.5.3, which downloads the log file found in [ftp://ita.ee.lbl.gov/traces/NASA_access_log_Aug95.gz](ftp://ita.ee.lbl.gov/traces/NASA_access_log_Aug95.gz),
-parses it, and generates statistics regarding the requests.
 
 > [!NOTE]
-> This project was created as a take-home assessment for a job interview. I got the job.
+> This project was created as a take-home assessment for a job interview.  
+> I got the job.
+
+Small project created in Java 11 and Spring Boot 2.5.3, which downloads the log file found in [ftp://ita.ee.lbl.gov/traces/NASA_access_log_Aug95.gz](ftp://ita.ee.lbl.gov/traces/NASA_access_log_Aug95.gz),
+parses it, and generates statistics regarding the requests.
 
 Statistics are accessible via a REST API, which returns each set of information in JSON format.
 
