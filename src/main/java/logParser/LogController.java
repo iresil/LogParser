@@ -1,4 +1,4 @@
-package com.example.LogParser;
+package logParser;
 
 import net.minidev.json.JSONArray;
 import org.springframework.web.bind.annotation.GetMapping;

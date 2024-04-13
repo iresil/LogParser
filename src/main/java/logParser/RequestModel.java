@@ -1,4 +1,4 @@
-package com.example.LogParser;
+package logParser;
 
 public class RequestModel {
     /**

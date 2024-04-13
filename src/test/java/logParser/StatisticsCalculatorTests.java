@@ -1,10 +1,13 @@
-package com.example.LogParser;
+package logParser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import logParser.DataHolder;
+import logParser.RequestModel;
+import logParser.StatisticsCalculator;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

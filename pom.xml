@@ -8,10 +8,10 @@
 		<version>2.5.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>logParser</groupId>
 	<artifactId>LogParser</artifactId>
-	<version>0.1.0</version>
-	<name>LogParser</name>
+	<version>0.2.0</version>
+	<name>logParser</name>
 	<description>Log Parser Project</description>
 	<properties>
 		<java.version>11</java.version>

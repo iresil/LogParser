@@ -1,4 +1,4 @@
-package com.example.LogParser;
+package logParser;
 
 import java.util.*;
 import java.util.stream.Collectors;

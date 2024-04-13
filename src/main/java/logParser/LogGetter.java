@@ -1,4 +1,4 @@
-package com.example.LogParser;
+package logParser;
 
 import org.apache.commons.net.ftp.FTPClient;
 

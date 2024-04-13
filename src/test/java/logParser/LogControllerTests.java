@@ -1,4 +1,4 @@
-package com.example.LogParser;
+package logParser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 
+import logParser.LogController;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.*;
 import org.skyscreamer.jsonassert.comparator.CustomComparator;
