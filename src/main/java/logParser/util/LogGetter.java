@@ -1,6 +1,9 @@
 package logParser.util;
 
+import lombok.NoArgsConstructor;
 import org.apache.commons.net.ftp.FTPClient;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,13 +12,28 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
+@Component
+@NoArgsConstructor
 public class LogGetter {
-    public byte[] getLogs() {
-        String server = "ita.ee.lbl.gov";
-        int port = 21;
-        String user = "anonymous";
-        String pass = "";
+    @Value("${logGetter.in.ftp.server}")
+    private String server;
 
+    @Value("${logGetter.in.ftp.port}")
+    private Integer port;
+
+    @Value("${logGetter.in.ftp.user}")
+    private String user;
+
+    @Value("${logGetter.in.ftp.pass}")
+    private String pass;
+
+    @Value("${logGetter.in.ftp.path}")
+    private String remotePath;
+
+    @Value("${logGetter.out.local.path}")
+    private String localPath;
+
+    public byte[] getLogs() {
         byte[] bytes = null;
 
         FTPClient ftpClient = new FTPClient();
@@ -27,16 +45,15 @@ public class LogGetter {
             ftpClient.enterLocalPassiveMode();
             ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
 
-            File localFile = new File("stored/NASA_access_log_Aug95.gz");
+            File localFile = new File(localPath);
             InputStream inputStream;
             if(!localFile.exists()) {
-                String remoteFile2 = "/traces/NASA_access_log_Aug95.gz";
-                inputStream = ftpClient.retrieveFileStream(remoteFile2);
+                inputStream = ftpClient.retrieveFileStream(remotePath);
                 inputStream.close();
 
                 Files.copy(inputStream, localFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             }
-            inputStream = new FileInputStream("stored/NASA_access_log_Aug95.gz");
+            inputStream = new FileInputStream(localPath);
 
             bytes = inputStream.readAllBytes();
 

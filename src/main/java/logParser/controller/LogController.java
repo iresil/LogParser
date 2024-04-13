@@ -22,16 +22,18 @@ public class LogController {
 
     public LogController() {
         byte[] bytes = LogParserApplication.ftpResponse;
-        LogParser parser = new LogParser();
-        List<RequestModel> result = parser.unZipFile(bytes);
+        if (bytes != null) {
+            LogParser parser = new LogParser();
+            List<RequestModel> result = parser.unZipFile(bytes);
 
-        data = StatisticsCalculator.createBaseDataHolder(result);
-        data.setResourcesSortedByFrequency(StatisticsCalculator.sortResourcesByFrequency(data.getResourceCallCount()));
-        data.setFailedResourcesSortedByFrequency(StatisticsCalculator.sortFailedResourcesByFrequency(data.getResourceFailCount()));
-        data.setHostsSortedByCallFrequency(StatisticsCalculator.sortHostsByRequestFrequency(data.getRequestsPerHost()));
-        data.setTop10HostResources(StatisticsCalculator.getAllRequestsForTopHosts(data.getHostsSortedByCallFrequency()));
-        data.setTop10FailedResources(StatisticsCalculator.getFrequentlyFailingResources(data.getFailedResourcesSortedByFrequency()));
-        data.setTop10HostRequests(StatisticsCalculator.getFrequentRequestsPerHost(data.getTop10HostResources()));
+            data = StatisticsCalculator.createBaseDataHolder(result);
+            data.setResourcesSortedByFrequency(StatisticsCalculator.sortResourcesByFrequency(data.getResourceCallCount()));
+            data.setFailedResourcesSortedByFrequency(StatisticsCalculator.sortFailedResourcesByFrequency(data.getResourceFailCount()));
+            data.setHostsSortedByCallFrequency(StatisticsCalculator.sortHostsByRequestFrequency(data.getRequestsPerHost()));
+            data.setTop10HostResources(StatisticsCalculator.getAllRequestsForTopHosts(data.getHostsSortedByCallFrequency()));
+            data.setTop10FailedResources(StatisticsCalculator.getFrequentlyFailingResources(data.getFailedResourcesSortedByFrequency()));
+            data.setTop10HostRequests(StatisticsCalculator.getFrequentRequestsPerHost(data.getTop10HostResources()));
+        }
     }
 
     @GetMapping("/logs")

@@ -1,17 +1,23 @@
 package logParser;
 
 import logParser.util.LogGetter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 public class LogParserApplication {
 
+	@Autowired
+	public LogGetter getter;
+
 	public static byte[] ftpResponse = null;
 
-	static{
+	@PostConstruct
+	public void requestOnce() {
 		System.out.println("Performing FTP request ...");
-		LogGetter getter = new LogGetter();
 		LogParserApplication.ftpResponse = getter.getLogs();
 		System.out.println("FTP request completed");
 	}
