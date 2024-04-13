@@ -2,8 +2,12 @@ package com.example.LogParser;
 
 import org.apache.commons.net.ftp.FTPClient;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 public class LogGetter {
     public byte[] GetLogs() {
@@ -23,8 +27,17 @@ public class LogGetter {
             ftpClient.enterLocalPassiveMode();
             ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
 
-            String remoteFile2 = "/traces/NASA_access_log_Aug95.gz";
-            InputStream inputStream = ftpClient.retrieveFileStream(remoteFile2);
+            File localFile = new File("stored/NASA_access_log_Aug95.gz");
+            InputStream inputStream;
+            if(!localFile.exists()) {
+                String remoteFile2 = "/traces/NASA_access_log_Aug95.gz";
+                inputStream = ftpClient.retrieveFileStream(remoteFile2);
+                inputStream.close();
+
+                Files.copy(inputStream, localFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+            inputStream = new FileInputStream("stored/NASA_access_log_Aug95.gz");
+
             bytes = inputStream.readAllBytes();
 
             inputStream.close();
