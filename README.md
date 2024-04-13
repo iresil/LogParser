@@ -36,10 +36,11 @@ Sets of 5 requests selected for their frequency, performed by the top 10 hosts i
 Summary including all the information mentioned above, added for testing.
 
 ## Dependencies
-- [Spring Boot 2.5.3](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter/2.5.3)
-- [Apache Commons Net 3.10](https://mvnrepository.com/artifact/commons-net/commons-net/3.10.0)
-- [JSON Small and Fast Parser 2.4.7](https://mvnrepository.com/artifact/net.minidev/json-smart/2.4.7)
-- [Project Lombok 1.18.24](https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.24)
+- [Spring Boot 3.2.4](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter/3.2.4)
+- [Apache Commons Net 3.10.0](https://mvnrepository.com/artifact/commons-net/commons-net/3.10.0)
+- [JSON Small and Fast Parser 2.5.1](https://mvnrepository.com/artifact/net.minidev/json-smart/2.5.1)
+- [Project Lombok 1.18.32](https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.32)
+- [Jakarta Annotations API 3.0.0](https://mvnrepository.com/artifact/jakarta.annotation/jakarta.annotation-api/3.0.0)
 
 ## Assumptions
 - We care about the speed of each response more than we care about having updated data, thus the log file is downloaded and unzipped only once, during application start.
