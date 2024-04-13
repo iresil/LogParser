@@ -35,11 +35,15 @@ Sets of 5 requests selected for their frequency, performed by the top 10 hosts i
 - http://localhost:8080/logs
 Summary including all the information mentioned above, added for testing.
 
+Swagger is available here:
+- http://localhost:8080/swagger-ui/index.html
+
 ## Dependencies
 - [Spring Boot 3.2.4](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter/3.2.4)
 - [Apache Commons Net 3.10.0](https://mvnrepository.com/artifact/commons-net/commons-net/3.10.0)
 - [JSON Small and Fast Parser 2.5.1](https://mvnrepository.com/artifact/net.minidev/json-smart/2.5.1)
 - [Project Lombok 1.18.32](https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.32)
+- [SpringDoc OpenAPI Starter WebMVC UI 2.5.0](https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui/2.5.0)
 
 ## Assumptions
 - We care about the speed of each response more than we care about having updated data, thus the log file is downloaded and unzipped only once, during application start.
