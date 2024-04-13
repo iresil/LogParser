@@ -1,4 +1,7 @@
-package logParser;
+package logParser.util;
+
+import logParser.dataModel.RequestModel;
+import logParser.dataModel.DataHolder;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -13,21 +16,32 @@ public class StatisticsCalculator {
      */
     public static DataHolder createBaseDataHolder(List<RequestModel> input) {
         DataHolder output = new DataHolder();
-        output.allRequests = input.size();
+        output.setAllRequests(input.size());
+        HashMap<String, Integer> resourceCallCount = output.getResourceCallCount();
+        HashMap<String, List<String>> requestsPerHost = output.getRequestsPerHost();
+        HashMap<String, Integer> resourceFailCount = output.getResourceFailCount();
+        int successfulRequests = 0;
         for (RequestModel rm : input) {
-            output.resourceCallCount.put(rm.resource, output.resourceCallCount.getOrDefault(rm.resource, 0) + 1);
+            String resource = rm.getResource();
+            resourceCallCount.put(resource, resourceCallCount.getOrDefault(resource, 0) + 1);
+            output.setResourceCallCount(resourceCallCount);
 
-            if (!output.requestsPerHost.containsKey(rm.host)) {
-                output.requestsPerHost.put(rm.host, new ArrayList<>());
+            String host = rm.getHost();
+            if (!requestsPerHost.containsKey(host)) {
+                requestsPerHost.put(host, new ArrayList<>());
             }
-            output.requestsPerHost.get(rm.host).add(rm.resource);
+            requestsPerHost.get(host).add(resource);
 
             if (rm.isSuccessful()) {
-                output.successfulRequests++;
+                successfulRequests++;
             } else {
-                output.resourceFailCount.put(rm.resource, output.resourceFailCount.getOrDefault(rm.resource, 0) + 1);
+                resourceFailCount.put(resource, resourceFailCount.getOrDefault(resource, 0) + 1);
             }
         }
+        output.setResourceCallCount(resourceCallCount);
+        output.setRequestsPerHost(requestsPerHost);
+        output.setResourceFailCount(resourceFailCount);
+        output.setSuccessfulRequests(successfulRequests);
         return output;
     }
 

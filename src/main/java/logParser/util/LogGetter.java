@@ -1,4 +1,4 @@
-package logParser;
+package logParser.util;
 
 import org.apache.commons.net.ftp.FTPClient;
 
@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 public class LogGetter {
-    public byte[] GetLogs() {
+    public byte[] getLogs() {
         String server = "ita.ee.lbl.gov";
         int port = 21;
         String user = "anonymous";

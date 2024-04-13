@@ -1,34 +1,31 @@
-package logParser;
+package logParser.dataModel;
 
+import lombok.*;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class RequestModel {
     /**
      * The host that performed the request
      */
-    String host;
+    private String host;
 
     /**
      * The http verb that was used for the request
      */
-    String httpVerb;
+    private String httpVerb;
 
     /**
      * The resource that was requested
      */
-    String resource;
+    private String resource;
 
     /**
      * The response code returned
      */
-    String responseCode;
-
-    RequestModel() { }
-
-    RequestModel(String host, String httpVerb, String resource, String responseCode) {
-        this.host = host;
-        this.httpVerb = httpVerb;
-        this.resource = resource;
-        this.responseCode = responseCode;
-    }
+    private String responseCode;
 
     /**
      * Checks whether the request was successful or not

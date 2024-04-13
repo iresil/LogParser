@@ -3,8 +3,8 @@ package logParser;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
-import logParser.LogParser;
-import logParser.RequestModel;
+import logParser.dataModel.RequestModel;
+import logParser.util.LogParser;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -104,9 +104,9 @@ public class LogParserTests {
         Object result = method.invoke(parser, input);
 
         assertThat(result.getClass().equals(RequestModel.class));
-        assertThat(((RequestModel)result).host.equals("in24.inetnebr.com"));
-        assertThat(((RequestModel)result).httpVerb.equals("GET"));
-        assertThat(((RequestModel)result).resource.equals("/shuttle/missions/sts-68/news/sts-68-mcc-05.txt"));
-        assertThat(((RequestModel)result).responseCode.equals("200"));
+        assertThat(((RequestModel)result).getHost().equals("in24.inetnebr.com"));
+        assertThat(((RequestModel)result).getHttpVerb().equals("GET"));
+        assertThat(((RequestModel)result).getResource().equals("/shuttle/missions/sts-68/news/sts-68-mcc-05.txt"));
+        assertThat(((RequestModel)result).getResponseCode().equals("200"));
     }
 }

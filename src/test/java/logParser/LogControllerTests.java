@@ -6,7 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 
-import logParser.LogController;
+import logParser.controller.LogController;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.*;
 import org.skyscreamer.jsonassert.comparator.CustomComparator;

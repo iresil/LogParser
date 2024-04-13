@@ -1,5 +1,6 @@
 package logParser;
 
+import logParser.util.LogGetter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,7 +12,7 @@ public class LogParserApplication {
 	static{
 		System.out.println("Performing FTP request ...");
 		LogGetter getter = new LogGetter();
-		LogParserApplication.ftpResponse = getter.GetLogs();
+		LogParserApplication.ftpResponse = getter.getLogs();
 		System.out.println("FTP request completed");
 	}
 

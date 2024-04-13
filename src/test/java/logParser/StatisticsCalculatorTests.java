@@ -5,9 +5,9 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import logParser.DataHolder;
-import logParser.RequestModel;
-import logParser.StatisticsCalculator;
+import logParser.dataModel.DataHolder;
+import logParser.dataModel.RequestModel;
+import logParser.util.StatisticsCalculator;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -22,38 +22,38 @@ public class StatisticsCalculatorTests {
     void createBaseDataHolderValidInputSuccess_FillsExpectedValues() {
         List<RequestModel> input = new ArrayList<>();
         RequestModel model = new RequestModel();
-        model.host = "in24.inetnebr.com";
-        model.httpVerb = "GET";
-        model.resource = "/shuttle/missions/sts-68/news/sts-68-mcc-05.txt";
-        model.responseCode = "200";
+        model.setHost("in24.inetnebr.com");
+        model.setHttpVerb("GET");
+        model.setResource("/shuttle/missions/sts-68/news/sts-68-mcc-05.txt");
+        model.setResponseCode("200");
         input.add(model);
         DataHolder output = StatisticsCalculator.createBaseDataHolder(input);
 
         assertNotEquals(new DataHolder(), output);
-        assertEquals(1, output.allRequests);
-        assertEquals(1, output.successfulRequests);
-        assertEquals(1, output.resourceCallCount.size());
-        assertEquals(0, output.resourceFailCount.size());
-        assertEquals(1, output.requestsPerHost.size());
+        assertEquals(1, output.getAllRequests());
+        assertEquals(1, output.getSuccessfulRequests());
+        assertEquals(1, output.getResourceCallCount().size());
+        assertEquals(0, output.getResourceFailCount().size());
+        assertEquals(1, output.getRequestsPerHost().size());
     }
 
     @Test
     void createBaseDataHolderValidInputFailure_FillsExpectedValues() {
         List<RequestModel> input = new ArrayList<>();
         RequestModel model = new RequestModel();
-        model.host = "js002.cc.utsunomiya-u.ac.jp";
-        model.httpVerb = "GET";
-        model.resource = "/shuttle/resources/orbiters/discovery.gif";
-        model.responseCode = "404";
+        model.setHost("js002.cc.utsunomiya-u.ac.jp");
+        model.setHttpVerb("GET");
+        model.setResource("/shuttle/resources/orbiters/discovery.gif");
+        model.setResponseCode("404");
         input.add(model);
         DataHolder output = StatisticsCalculator.createBaseDataHolder(input);
 
         assertNotEquals(new DataHolder(), output);
-        assertEquals(1, output.allRequests);
-        assertEquals(0, output.successfulRequests);
-        assertEquals(1, output.resourceCallCount.size());
-        assertEquals(1, output.resourceFailCount.size());
-        assertEquals(1, output.requestsPerHost.size());
+        assertEquals(1, output.getAllRequests());
+        assertEquals(0, output.getSuccessfulRequests());
+        assertEquals(1, output.getResourceCallCount().size());
+        assertEquals(1, output.getResourceFailCount().size());
+        assertEquals(1, output.getRequestsPerHost().size());
     }
 
     @Test
@@ -64,11 +64,11 @@ public class StatisticsCalculatorTests {
         DataHolder output = StatisticsCalculator.createBaseDataHolder(input);
 
         assertNotEquals(null, output);
-        assertEquals(1, output.allRequests);
-        assertEquals(0, output.successfulRequests);
-        assertEquals(1, output.resourceCallCount.size());
-        assertEquals(1, output.resourceFailCount.size());
-        assertEquals(1, output.requestsPerHost.size());
+        assertEquals(1, output.getAllRequests());
+        assertEquals(0, output.getSuccessfulRequests());
+        assertEquals(1, output.getResourceCallCount().size());
+        assertEquals(1, output.getResourceFailCount().size());
+        assertEquals(1, output.getRequestsPerHost().size());
     }
 
     @Test
@@ -77,11 +77,11 @@ public class StatisticsCalculatorTests {
         DataHolder output = StatisticsCalculator.createBaseDataHolder(input);
 
         assertNotEquals(null, output);
-        assertEquals(0, output.allRequests);
-        assertEquals(0, output.successfulRequests);
-        assertEquals(0, output.resourceCallCount.size());
-        assertEquals(0, output.resourceFailCount.size());
-        assertEquals(0, output.requestsPerHost.size());
+        assertEquals(0, output.getAllRequests());
+        assertEquals(0, output.getSuccessfulRequests());
+        assertEquals(0, output.getResourceCallCount().size());
+        assertEquals(0, output.getResourceFailCount().size());
+        assertEquals(0, output.getRequestsPerHost().size());
     }
 
     @Test
@@ -126,8 +126,8 @@ public class StatisticsCalculatorTests {
         input.add(new RequestModel("in24.inetnebr.com", "GET", "/shuttle/missions/sts-68/news/sts-68-mcc-05.txt", "200"));
         input.add(new RequestModel("in24.inetnebr.com", "GET", "/shuttle/missions/sts-68/news/sts-68-mcc-05.txt", "200"));
         DataHolder dataHolder = StatisticsCalculator.createBaseDataHolder(input);
-        dataHolder.hostsSortedByCallFrequency = StatisticsCalculator.sortHostsByRequestFrequency(dataHolder.requestsPerHost);
-        List<Map.Entry> output = StatisticsCalculator.getAllRequestsForTopHosts(dataHolder.hostsSortedByCallFrequency);
+        dataHolder.setHostsSortedByCallFrequency(StatisticsCalculator.sortHostsByRequestFrequency(dataHolder.getRequestsPerHost()));
+        List<Map.Entry> output = StatisticsCalculator.getAllRequestsForTopHosts(dataHolder.getHostsSortedByCallFrequency());
 
         assertThat(output.size() == 10);
     }
@@ -142,8 +142,8 @@ public class StatisticsCalculatorTests {
         input.add(new RequestModel("uplherc.upl.com", "GET", "/", "200"));
         input.add(new RequestModel("uplherc.upl.com", "GET", "/images/MOSAIC-logosmall.gif", "200"));
         DataHolder dataHolder = StatisticsCalculator.createBaseDataHolder(input);
-        dataHolder.hostsSortedByCallFrequency = StatisticsCalculator.sortHostsByRequestFrequency(dataHolder.requestsPerHost);
-        List<Map.Entry> output = StatisticsCalculator.getAllRequestsForTopHosts(dataHolder.hostsSortedByCallFrequency);
+        dataHolder.setHostsSortedByCallFrequency(StatisticsCalculator.sortHostsByRequestFrequency(dataHolder.getRequestsPerHost()));
+        List<Map.Entry> output = StatisticsCalculator.getAllRequestsForTopHosts(dataHolder.getHostsSortedByCallFrequency());
 
         assertThat(output.size() == 2);
     }

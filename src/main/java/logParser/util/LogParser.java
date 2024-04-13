@@ -1,4 +1,6 @@
-package logParser;
+package logParser.util;
+
+import logParser.dataModel.RequestModel;
 
 import java.io.*;
 import java.util.*;
@@ -51,10 +53,10 @@ public class LogParser {
 
         RequestModel model = new RequestModel();
         while (matcher.find()) {
-            model.host = matcher.group(1);
-            model.httpVerb = matcher.group(2);
-            model.resource = matcher.group(3);
-            model.responseCode = matcher.group(5);
+            model.setHost(matcher.group(1));
+            model.setHttpVerb(matcher.group(2));
+            model.setResource(matcher.group(3));
+            model.setResponseCode(matcher.group(5));
         }
 
         return model;
@@ -72,16 +74,16 @@ public class LogParser {
         }
         else {
             if (!req.isHostValid())
-                System.out.println("Line: " + line + ", Invalid host: " + req.host + ", Request string: \\" + lineContent);
+                System.out.println("Line: " + line + ", Invalid host: " + req.getHost() + ", Request string: \\" + lineContent);
 
             if (!req.isHttpVerbValid())
-                System.out.println("Line: " + line + ", Invalid http verb: " + req.httpVerb + ", Request string: \\" + lineContent);
+                System.out.println("Line: " + line + ", Invalid http verb: " + req.getHttpVerb() + ", Request string: \\" + lineContent);
 
             if (!req.isResourceValid())
-                System.out.println("Line: " + line + ", Invalid resource: " + req.resource + ", Request string: \\" + lineContent);
+                System.out.println("Line: " + line + ", Invalid resource: " + req.getResource() + ", Request string: \\" + lineContent);
 
             if (!req.isResponseCodeValid())
-                System.out.println("Line: " + line + ", Invalid response code: " + req.responseCode + ", Request string: \\" + lineContent);
+                System.out.println("Line: " + line + ", Invalid response code: " + req.getResponseCode() + ", Request string: \\" + lineContent);
         }
     }
 }
