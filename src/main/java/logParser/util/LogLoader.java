@@ -14,7 +14,7 @@ import java.nio.file.StandardCopyOption;
 
 @Component
 @NoArgsConstructor
-public class LogGetter {
+public class LogLoader {
     @Value("${logGetter.in.ftp.server}")
     private String server;
 
@@ -33,7 +33,7 @@ public class LogGetter {
     @Value("${logGetter.out.local.path}")
     private String localPath;
 
-    public byte[] getLogs() {
+    public byte[] loadLogs() {
         byte[] bytes = null;
 
         FTPClient ftpClient = new FTPClient();
@@ -60,7 +60,7 @@ public class LogGetter {
             inputStream.close();
 
         } catch (IOException ex) {
-            System.out.println("LogGetter Error: " + ex.getMessage());
+            System.out.println("LogLoader Error: " + ex.getMessage());
             ex.printStackTrace();
         } finally {
             try {

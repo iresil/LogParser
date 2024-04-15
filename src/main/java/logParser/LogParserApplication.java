@@ -1,7 +1,7 @@
 package logParser;
 
 import jakarta.annotation.PostConstruct;
-import logParser.util.LogGetter;
+import logParser.util.LogLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,14 +10,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LogParserApplication {
 
 	@Autowired
-	public LogGetter getter;
+	public LogLoader getter;
 
 	public static byte[] ftpResponse = null;
 
 	@PostConstruct
 	public void requestOnce() {
 		System.out.println("Performing FTP request ...");
-		LogParserApplication.ftpResponse = getter.getLogs();
+		LogParserApplication.ftpResponse = getter.loadLogs();
 		System.out.println("FTP request completed");
 	}
 
