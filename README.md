@@ -4,8 +4,11 @@
 > This project was created as a take-home assessment for a job interview.  
 > I got the job.
 
-Small project created in Java 22 and Spring Boot 3.2.4, which downloads the log file found in [ftp://ita.ee.lbl.gov/traces/NASA_access_log_Aug95.gz](ftp://ita.ee.lbl.gov/traces/NASA_access_log_Aug95.gz),
-stores it locally for future usage, parses it, and generates statistics regarding the requests.
+Small project created in Java 22 and Spring Boot 3.2.4, which downloads and parses HTTP request logs
+containing requests made to the NASA Kennedy Space Center WWW server in Florida, between August 04 and August 31, 1995.
+
+The logs are downloaded from [ftp://ita.ee.lbl.gov/traces/NASA_access_log_Aug95.gz](ftp://ita.ee.lbl.gov/traces/NASA_access_log_Aug95.gz),
+stored locally for future usage, parsed, and finally statistics are generated regarding the requests.
 
 Statistics are accessible via a REST API, which returns each set of information in JSON format.
 
