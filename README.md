@@ -7,7 +7,7 @@
 Small project created in Java 22 and Spring Boot 3.2.4, which downloads and parses HTTP request logs
 containing requests made to the NASA Kennedy Space Center WWW server in Florida, between August 04 and August 31, 1995.
 
-The logs are downloaded from [ftp://ita.ee.lbl.gov/traces/NASA_access_log_Aug95.gz](ftp://ita.ee.lbl.gov/traces/NASA_access_log_Aug95.gz),
+The logs are downloaded from **[ftp://ita.ee.lbl.gov/traces/NASA_access_log_Aug95.gz](ftp://ita.ee.lbl.gov/traces/NASA_access_log_Aug95.gz)**,
 stored locally for future usage, parsed, and finally statistics are generated regarding the requests.
 
 Statistics are accessible via a REST API, which returns each set of information in JSON format.
