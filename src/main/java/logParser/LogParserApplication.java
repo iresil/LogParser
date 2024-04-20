@@ -10,14 +10,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LogParserApplication {
 
 	@Autowired
-	public LogLoader getter;
+	public LogLoader loader;
 
 	public static byte[] ftpResponse = null;
 
 	@PostConstruct
 	public void requestOnce() {
 		System.out.println("Performing FTP request ...");
-		LogParserApplication.ftpResponse = getter.loadLogs();
+		LogParserApplication.ftpResponse = loader.loadLogs();
 		System.out.println("FTP request completed");
 	}
 
