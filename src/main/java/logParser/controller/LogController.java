@@ -36,6 +36,18 @@ public class LogController {
         }
     }
 
+    /**
+     * Single endpoint containing the concatenated results of all other endpoints.
+     * @return A JSONObject with the following fields:
+     * <ul>
+     *   <li>most requested
+     *   <li>successful
+     *   <li>failed
+     *   <li>frequent resources
+     *   <li>frequent hosts
+     *   <li>frequent requests for frequent hosts
+     * </ul>
+     */
     @GetMapping("/logs")
     public JSONObject logs() {
         JSONObject object = new JSONObject();
@@ -49,6 +61,11 @@ public class LogController {
         return object;
     }
 
+    /**
+     * The top 10 resources that were requested and the number of calls to each resource, sorted by the number of calls,
+     * descending.
+     * @return A JSONArray with 10 entries
+     */
     @GetMapping("/top10Resources")
     public JSONArray getMostRequestedResources() {
         JSONArray top10Resources = new JSONArray();
@@ -66,6 +83,10 @@ public class LogController {
         return top10Resources;
     }
 
+    /**
+     * The percentage of successful requests (i.e. requests with a response code like 2xx or 3xx).
+     * @return A single JSONObject with "successful request percentage" as its field
+     */
     @GetMapping("/successPercentage")
     public JSONObject getSuccessfulRequestPercentage() {
         JSONObject successfulPercentage = new JSONObject();
@@ -78,6 +99,11 @@ public class LogController {
         return successfulPercentage;
     }
 
+    /**
+     * The percentage of failed requests (i.e. requests with a response code not like 2xx or 3xx, including requests
+     * that couldn't be parsed).
+     * @return A single JSONObject with "failed request percentage" as its field
+     */
     @GetMapping("/failPercentage")
     public JSONObject getFailedRequestPercentage() {
         JSONObject failedPercentage = new JSONObject();
@@ -91,6 +117,10 @@ public class LogController {
         return failedPercentage;
     }
 
+    /**
+     * The top 10 failing resources, sorted by failure frequency, descending.
+     * @return A JSONArray with 10 entries
+     */
     @GetMapping("/top10FailingResources")
     public JSONArray getFrequentlyFailingResources() {
         JSONArray top10Failed = new JSONArray();
@@ -105,6 +135,10 @@ public class LogController {
         return top10Failed;
     }
 
+    /**
+     * The top 10 hosts with the most requests (includes the hostname/IP and the number of requests made by each host).
+     * @return A JSONArray with 10 entries
+     */
     @GetMapping("/top10Hosts")
     public JSONArray getFrequentlyAppearingHosts() {
         JSONArray top10Hosts = new JSONArray();
@@ -120,6 +154,10 @@ public class LogController {
         return top10Hosts;
     }
 
+    /**
+     * The top 5 most often requested resources for each of the top 10 hosts with the most requests.
+     * @return A JSONArray with 10 entries, each of which contains a JSONArray with 5 entries
+     */
     @GetMapping("/top5RequestsForTop10Hosts")
     public JSONArray getFrequentRequestsForFrequentlyAppearingHosts() {
         JSONArray top10HostsTop5Requests = new JSONArray();
