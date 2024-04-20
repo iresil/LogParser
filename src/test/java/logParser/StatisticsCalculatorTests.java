@@ -11,10 +11,7 @@ import logParser.util.StatisticsCalculator;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SpringBootTest
 public class StatisticsCalculatorTests {
@@ -98,10 +95,11 @@ public class StatisticsCalculatorTests {
         input.put("/images/MOSAIC-logosmall.gif", 3);
         input.put("/images/ksclogo-medium.gif", 1);
         input.put("/", 8);
-        List<Map.Entry> output = StatisticsCalculator.sortFailedResourcesByFrequency(input);
+        LinkedHashMap<String, Integer> output = StatisticsCalculator.sortFailedResourcesByFrequency(input);
 
+        List<String> keys = output.keySet().stream().toList();
         for (int i = 1; i < output.size(); i++) {
-            assertThat((Integer)output.get(i).getValue() < (Integer)output.get(i-1).getValue());
+            assertThat(output.get(keys.get(i)) < output.get(keys.get(i-1)));
         }
     }
 
@@ -127,7 +125,7 @@ public class StatisticsCalculatorTests {
         input.add(new RequestModel("in24.inetnebr.com", "GET", "/shuttle/missions/sts-68/news/sts-68-mcc-05.txt", "200"));
         DataHolder dataHolder = StatisticsCalculator.createBaseDataHolder(input);
         dataHolder.setHostsSortedByCallFrequency(StatisticsCalculator.sortHostsByRequestFrequency(dataHolder.getRequestsPerHost()));
-        List<Map.Entry> output = StatisticsCalculator.getAllRequestsForTopHosts(dataHolder.getHostsSortedByCallFrequency());
+        LinkedHashMap<String, List<String>> output = StatisticsCalculator.getAllRequestsForTopHosts(dataHolder.getHostsSortedByCallFrequency());
 
         assertThat(output.size() == 10);
     }
@@ -143,14 +141,14 @@ public class StatisticsCalculatorTests {
         input.add(new RequestModel("uplherc.upl.com", "GET", "/images/MOSAIC-logosmall.gif", "200"));
         DataHolder dataHolder = StatisticsCalculator.createBaseDataHolder(input);
         dataHolder.setHostsSortedByCallFrequency(StatisticsCalculator.sortHostsByRequestFrequency(dataHolder.getRequestsPerHost()));
-        List<Map.Entry> output = StatisticsCalculator.getAllRequestsForTopHosts(dataHolder.getHostsSortedByCallFrequency());
+        LinkedHashMap<String, List<String>> output = StatisticsCalculator.getAllRequestsForTopHosts(dataHolder.getHostsSortedByCallFrequency());
 
         assertThat(output.size() == 2);
     }
 
     @Test
     void getAllRequestsForTopHostsInvalidInput_ReturnsEmptyList() {
-        List<Map.Entry> output = StatisticsCalculator.getAllRequestsForTopHosts(new ArrayList<>());
+        LinkedHashMap<String, List<String>> output = StatisticsCalculator.getAllRequestsForTopHosts(new LinkedHashMap<>());
 
         assertThat(output.size() == 0);
     }

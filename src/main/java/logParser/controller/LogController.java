@@ -54,8 +54,9 @@ public class LogController {
         JSONArray top10Resources = new JSONArray();
         if (data != null) {
             JSONObject resource;
-            List<Map.Entry> entries = data.getResourcesSortedByFrequency().stream().limit(10).collect(Collectors.toList());
-            for (Map.Entry entry : entries) {
+            LinkedHashMap<String, Integer> entries = data.getResourcesSortedByFrequency().entrySet().stream().limit(10)
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, _) -> e1, LinkedHashMap::new));
+            for (Map.Entry<String, Integer> entry : entries.entrySet()) {
                 resource = new JSONObject();
                 resource.appendField("resource", entry.getKey());
                 resource.appendField("requests", entry.getValue());
@@ -109,10 +110,10 @@ public class LogController {
         JSONArray top10Hosts = new JSONArray();
         if (data != null) {
             JSONObject host;
-            for (Map.Entry request : data.getTop10HostResources()) {
+            for (Map.Entry<String, List<String>> request : data.getTop10HostResources().entrySet()) {
                 host = new JSONObject();
                 host.appendField("host", request.getKey());
-                host.appendField("requests", ((List<String>) request.getValue()).size());
+                host.appendField("requests", request.getValue().size());
                 top10Hosts.add(host);
             }
         }
@@ -126,11 +127,11 @@ public class LogController {
             JSONObject hostObject;
             JSONArray hostRequests;
             JSONObject hostRequestObj;
-            for (Map.Entry hostRequest : new ArrayList<Map.Entry>(data.getTop10HostRequests().entrySet())) {
+            for (Map.Entry<String, LinkedHashMap<String, Long>> hostRequest : new ArrayList<>(data.getTop10HostRequests().entrySet())) {
                 hostObject = new JSONObject();
                 hostObject.appendField("host", hostRequest.getKey());
                 hostRequests = new JSONArray();
-                for (Map.Entry hostRequestCount : (List<Map.Entry>)hostRequest.getValue()) {
+                for (Map.Entry<String, Long> hostRequestCount : hostRequest.getValue().entrySet()) {
                     hostRequestObj = new JSONObject();
                     hostRequestObj.appendField("resource", hostRequestCount.getKey());
                     hostRequestObj.appendField("count", hostRequestCount.getValue());

@@ -38,22 +38,22 @@ public class DataHolder {
     /**
      * How many times each resource was called, sorted by frequency descending
      */
-    private List<Map.Entry> resourcesSortedByFrequency;
+    private LinkedHashMap<String, Integer> resourcesSortedByFrequency;
 
     /**
      * How many times each resource was called and failed, sorted by failure frequency descending
      */
-    private List<Map.Entry> failedResourcesSortedByFrequency;
+    private LinkedHashMap<String, Integer> failedResourcesSortedByFrequency;
 
     /**
      * Which requests were made per host, sorted by frequency descending
      */
-    private List<Map.Entry> hostsSortedByCallFrequency;
+    private LinkedHashMap<String, List<String>> hostsSortedByCallFrequency;
 
     /**
      * Which requests were made for the top 10 hosts in frequency
      */
-    private List<Map.Entry> top10HostResources;
+    private LinkedHashMap<String, List<String>> top10HostResources;
 
     /**
      * The top 10 resources that fail more often
@@ -63,5 +63,5 @@ public class DataHolder {
     /**
      * How frequently each resource gets called, for the top 10 hosts
      */
-    private HashMap<String, List<Map.Entry>> top10HostRequests = new HashMap<>();
+    private LinkedHashMap<String, LinkedHashMap<String, Long>> top10HostRequests = new LinkedHashMap<>();
 }
