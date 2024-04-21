@@ -1,30 +1,36 @@
 package logParser.dataModel;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class RequestModel {
+@Entity
+public class RequestModel extends BaseEntity {
     /**
      * The host that performed the request
      */
+    @Column(name = "host")
     private String host;
 
     /**
      * The http verb that was used for the request
      */
+    @Column(name = "verb")
     private String httpVerb;
 
     /**
      * The resource that was requested
      */
+    @Column(name = "resource")
     private String resource;
 
     /**
      * The response code returned
      */
+    @Column(name = "response_code")
     private String responseCode;
 
     /**

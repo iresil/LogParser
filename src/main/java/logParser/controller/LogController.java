@@ -1,11 +1,12 @@
 package logParser.controller;
 
-import logParser.*;
+import jakarta.annotation.PostConstruct;
 import logParser.dataModel.DataHolder;
 import logParser.dataModel.RequestModel;
-import logParser.util.LogParser;
+import logParser.repository.RequestRepository;
 import logParser.util.StatisticsCalculator;
 import net.minidev.json.JSONArray;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,18 +15,24 @@ import net.minidev.json.JSONObject;
 import java.text.NumberFormat;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @RestController
 public class LogController {
 
+    @Autowired
+    private RequestRepository requestRepository;
+
     private DataHolder data;
 
-    public LogController() {
-        byte[] bytes = LogParserApplication.ftpResponse;
-        if (bytes != null) {
-            LogParser parser = new LogParser();
-            List<RequestModel> result = parser.unZipFile(bytes);
+    @PostConstruct
+    public void initialize() {
+        System.out.println("Retrieving requests from H2 database ...");
+        List<RequestModel> result = StreamSupport.stream(requestRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+        System.out.println("Creating base DataHolder ...");
 
+        if (!result.isEmpty()) {
             data = StatisticsCalculator.createBaseDataHolder(result);
             data.setResourcesSortedByFrequency(StatisticsCalculator.sortResourcesByFrequency(data.getResourceCallCount()));
             data.setFailedResourcesSortedByFrequency(StatisticsCalculator.sortFailedResourcesByFrequency(data.getResourceFailCount()));
@@ -34,6 +41,7 @@ public class LogController {
             data.setTop10FailedResources(StatisticsCalculator.getFrequentlyFailingResources(data.getFailedResourcesSortedByFrequency()));
             data.setTop10HostRequests(StatisticsCalculator.getFrequentRequestsPerHost(data.getTop10HostResources()));
         }
+        System.out.println("Controller initialized");
     }
 
     /**

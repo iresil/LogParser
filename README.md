@@ -49,6 +49,7 @@ Swagger is available here:
 - [SpringDoc OpenAPI Starter WebMVC UI 2.5.0](https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui/2.5.0)
 - [SpringDoc OpenAPI Javadoc 1.8.0](https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-javadoc/1.8.0)
 - [Therapi Runtime Javadoc Scribe 0.15.0](https://mvnrepository.com/artifact/com.github.therapi/therapi-runtime-javadoc-scribe/0.15.0)
+- [H2 Database Engine 2.2.224](https://mvnrepository.com/artifact/com.h2database/h2/2.2.224)
 
 ## Assumptions
 - We care about the speed of each response more than we care about having updated data, thus the log file is downloaded and unzipped only once, during application start.

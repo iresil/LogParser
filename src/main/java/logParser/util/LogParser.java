@@ -1,12 +1,14 @@
 package logParser.util;
 
 import logParser.dataModel.RequestModel;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.*;
 import java.util.regex.*;
 import java.util.zip.GZIPInputStream;
 
+@Component
 public class LogParser {
     /**
      * Unzips the contents of a byte array containing a zipped file
@@ -14,25 +16,25 @@ public class LogParser {
      * @return A List containing each line as a RequestModel
      */
     public List<RequestModel> unZipFile(byte[] bytes) {
-        List<RequestModel> result = new ArrayList<RequestModel>();
+        List<RequestModel> result = new ArrayList<>();
 
         try {
+            if (bytes != null) {
+                GZIPInputStream gZIPInputStream = new GZIPInputStream(new ByteArrayInputStream(bytes));
+                BufferedReader br = new BufferedReader(new InputStreamReader(gZIPInputStream));
 
-            GZIPInputStream gZIPInputStream = new GZIPInputStream(new ByteArrayInputStream(bytes));
-            BufferedReader br = new BufferedReader(new InputStreamReader(gZIPInputStream));
+                String lineContent;
+                int i = 1;
+                while ((lineContent = br.readLine()) != null) {
+                    RequestModel req = parseEntry(lineContent);
+                    validateEntry(lineContent, i, req);
 
-            String lineContent;
-            int i = 1;
-            while ((lineContent = br.readLine()) != null) {
-                RequestModel req = parseEntry(lineContent);
-                validateEntry(lineContent, i, req);
+                    result.add(req);
+                    i++;
+                }
 
-                result.add(req);
-                i++;
+                gZIPInputStream.close();
             }
-
-            gZIPInputStream.close();
-
         } catch (IOException ex) {
             System.out.println("LogParser Error: " + ex.getMessage());
             ex.printStackTrace();
