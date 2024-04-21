@@ -14,43 +14,48 @@
 	<description>Log Parser Project</description>
 	<properties>
 		<java.version>22</java.version>
+		<spring-boot.version>3.2.4</spring-boot.version>
+		<commons-net.version>3.10.0</commons-net.version>
+		<springdoc-openapi-ui.version>2.5.0</springdoc-openapi-ui.version>
+		<springdoc-openapi-javadoc.version>1.8.0</springdoc-openapi-javadoc.version>
+		<therapi-javadoc-scribe.version>0.15.0</therapi-javadoc-scribe.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>3.2.4</version>
+			<version>${spring-boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<version>3.2.4</version>
+			<version>${spring-boot.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.minidev</groupId>
 			<artifactId>json-smart</artifactId>
-			<version>2.5.0</version>
+			<version>${json-smart.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.32</version>
+			<version>${lombok.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-net</groupId>
 			<artifactId>commons-net</artifactId>
-			<version>3.10.0</version>
+			<version>${commons-net.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.5.0</version>
+			<version>${springdoc-openapi-ui.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-javadoc</artifactId>
-			<version>1.8.0</version>
+			<version>${springdoc-openapi-javadoc.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -59,7 +64,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>3.2.4</version>
+				<version>${spring-boot.version}</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -77,7 +82,7 @@
 						<path>
 							<groupId>com.github.therapi</groupId>
 							<artifactId>therapi-runtime-javadoc-scribe</artifactId>
-							<version>0.15.0</version>
+							<version>${therapi-javadoc-scribe.version}</version>
 						</path>
 						<path>
 							<groupId>org.projectlombok</groupId>
