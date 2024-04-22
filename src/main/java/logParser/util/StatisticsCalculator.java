@@ -1,7 +1,7 @@
 package logParser.util;
 
-import logParser.dataModel.RequestModel;
-import logParser.dataModel.DataHolder;
+import logParser.dataModel.RequestEntity;
+import logParser.domainModel.StatisticsContainer;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -11,17 +11,17 @@ public class StatisticsCalculator {
      * Loops through all parsed RequestModels and retrieves the number of times each resource was called,
      * all requests that were made per host and the number of successful requests.
      * @param input A List of parsed RequestModels
-     * @return A DataHolder object with its allRequests, resourceCallCount, resourceFailCount, requestsPerHost
+     * @return A StatisticsContainer object with its allRequests, resourceCallCount, resourceFailCount, requestsPerHost
      * and successfulRequests fields already filled
      */
-    public static DataHolder createBaseDataHolder(List<RequestModel> input) {
-        DataHolder output = new DataHolder();
+    public static StatisticsContainer createBaseStatisticsContainer(List<RequestEntity> input) {
+        StatisticsContainer output = new StatisticsContainer();
         output.setAllRequests(input.size());
         HashMap<String, Integer> resourceCallCount = output.getResourceCallCount();
         HashMap<String, List<String>> requestsPerHost = output.getRequestsPerHost();
         HashMap<String, Integer> resourceFailCount = output.getResourceFailCount();
         int successfulRequests = 0;
-        for (RequestModel rm : input) {
+        for (RequestEntity rm : input) {
             String resource = rm.getResource();
             resourceCallCount.put(resource, resourceCallCount.getOrDefault(resource, 0) + 1);
             output.setResourceCallCount(resourceCallCount);

@@ -1,7 +1,7 @@
 package logParser.repository;
 
-import logParser.dataModel.RequestModel;
+import logParser.dataModel.RequestEntity;
 import org.springframework.data.repository.CrudRepository;
 
-public interface RequestRepository extends CrudRepository<RequestModel, Long> {
+public interface RequestRepository extends CrudRepository<RequestEntity, Long> {
 }

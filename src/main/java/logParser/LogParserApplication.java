@@ -1,7 +1,7 @@
 package logParser;
 
 import jakarta.annotation.PostConstruct;
-import logParser.dataModel.RequestModel;
+import logParser.dataModel.RequestEntity;
 import logParser.repository.RequestRepository;
 import logParser.util.LogLoader;
 import logParser.util.LogParser;
@@ -27,7 +27,7 @@ public class LogParserApplication {
             System.out.println("Performing FTP request ...");
             byte[] ftpResponse = loader.loadLogs();
             System.out.println("FTP request completed");
-            List<RequestModel> result = parser.unZipFile(ftpResponse);
+            List<RequestEntity> result = parser.unZipFile(ftpResponse);
             System.out.println("FTP response unzipped");
             System.out.println("Storing requests in H2 database ...");
             requestRepository.saveAll(result);

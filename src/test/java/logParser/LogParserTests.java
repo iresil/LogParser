@@ -3,7 +3,7 @@ package logParser;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
-import logParser.dataModel.RequestModel;
+import logParser.dataModel.RequestEntity;
 import logParser.util.LogParser;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,7 +31,7 @@ public class LogParserTests {
         method.setAccessible(true);
         String input = "test";
 
-        assertThat(method.invoke(parser, input).equals(new RequestModel()));
+        assertThat(method.invoke(parser, input).equals(new RequestEntity()));
     }
 
     @Test
@@ -43,7 +43,7 @@ public class LogParserTests {
 
         Object result = method.invoke(parser, input);
 
-        assertThat(result.getClass().equals(new RequestModel()));
+        assertThat(result.getClass().equals(new RequestEntity()));
     }
 
     @Test
@@ -55,7 +55,7 @@ public class LogParserTests {
 
         Object result = method.invoke(parser, input);
 
-        assertThat(result.getClass().equals(new RequestModel()));
+        assertThat(result.getClass().equals(new RequestEntity()));
     }
 
     @Test
@@ -67,7 +67,7 @@ public class LogParserTests {
 
         Object result = method.invoke(parser, input);
 
-        assertThat(result.getClass().equals(new RequestModel()));
+        assertThat(result.getClass().equals(new RequestEntity()));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class LogParserTests {
 
         Object result = method.invoke(parser, input);
 
-        assertThat(result.getClass().equals(new RequestModel()));
+        assertThat(result.getClass().equals(new RequestEntity()));
     }
 
     @Test
@@ -91,7 +91,7 @@ public class LogParserTests {
 
         Object result = method.invoke(parser, input);
 
-        assertThat(result.getClass().equals(new RequestModel()));
+        assertThat(result.getClass().equals(new RequestEntity()));
     }
 
     @Test
@@ -103,10 +103,10 @@ public class LogParserTests {
 
         Object result = method.invoke(parser, input);
 
-        assertThat(result.getClass().equals(RequestModel.class));
-        assertThat(((RequestModel)result).getHost().equals("in24.inetnebr.com"));
-        assertThat(((RequestModel)result).getHttpVerb().equals("GET"));
-        assertThat(((RequestModel)result).getResource().equals("/shuttle/missions/sts-68/news/sts-68-mcc-05.txt"));
-        assertThat(((RequestModel)result).getResponseCode().equals("200"));
+        assertThat(result.getClass().equals(RequestEntity.class));
+        assertThat(((RequestEntity)result).getHost().equals("in24.inetnebr.com"));
+        assertThat(((RequestEntity)result).getHttpVerb().equals("GET"));
+        assertThat(((RequestEntity)result).getResource().equals("/shuttle/missions/sts-68/news/sts-68-mcc-05.txt"));
+        assertThat(((RequestEntity)result).getResponseCode().equals("200"));
     }
 }

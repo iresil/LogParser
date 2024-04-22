@@ -1,4 +1,4 @@
-package logParser.dataModel;
+package logParser.domainModel;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import java.util.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class DataHolder {
+public class StatisticsContainer {
     /**
      * How many times each resource was called
      */

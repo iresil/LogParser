@@ -1,8 +1,8 @@
 package logParser.controller;
 
 import jakarta.annotation.PostConstruct;
-import logParser.dataModel.DataHolder;
-import logParser.dataModel.RequestModel;
+import logParser.domainModel.StatisticsContainer;
+import logParser.dataModel.RequestEntity;
 import logParser.repository.RequestRepository;
 import logParser.util.StatisticsCalculator;
 import net.minidev.json.JSONArray;
@@ -23,17 +23,17 @@ public class LogController {
     @Autowired
     private RequestRepository requestRepository;
 
-    private DataHolder data;
+    private StatisticsContainer data;
 
     @PostConstruct
     public void initialize() {
         System.out.println("Retrieving requests from H2 database ...");
-        List<RequestModel> result = StreamSupport.stream(requestRepository.findAll().spliterator(), false)
+        List<RequestEntity> result = StreamSupport.stream(requestRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
-        System.out.println("Creating base DataHolder ...");
+        System.out.println("Creating base StatisticsContainer ...");
 
         if (!result.isEmpty()) {
-            data = StatisticsCalculator.createBaseDataHolder(result);
+            data = StatisticsCalculator.createBaseStatisticsContainer(result);
             data.setResourcesSortedByFrequency(StatisticsCalculator.sortResourcesByFrequency(data.getResourceCallCount()));
             data.setFailedResourcesSortedByFrequency(StatisticsCalculator.sortFailedResourcesByFrequency(data.getResourceFailCount()));
             data.setHostsSortedByCallFrequency(StatisticsCalculator.sortHostsByRequestFrequency(data.getRequestsPerHost()));

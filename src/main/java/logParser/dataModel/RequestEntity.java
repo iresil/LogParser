@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-public class RequestModel extends BaseEntity {
+public class RequestEntity extends BaseEntity {
     /**
      * The host that performed the request
      */
@@ -54,7 +54,7 @@ public class RequestModel extends BaseEntity {
     }
 
     /**
-     * Checks whether any valid fields exist in this RequestModel
+     * Checks whether any valid fields exist in this RequestEntity
      * @return True if any of the fields are valid
      */
     public Boolean validFieldsExist() {
