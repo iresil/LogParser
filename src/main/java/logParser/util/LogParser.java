@@ -1,6 +1,8 @@
 package logParser.util;
 
 import logParser.dataModel.RequestEntity;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -10,6 +12,8 @@ import java.util.zip.GZIPInputStream;
 
 @Component
 public class LogParser {
+    private static final Logger logger = LogManager.getLogger(LogParser.class);
+
     /**
      * Unzips the contents of a byte array containing a zipped file
      * @param bytes A byte array containing a zipped file
@@ -36,8 +40,7 @@ public class LogParser {
                 gZIPInputStream.close();
             }
         } catch (IOException ex) {
-            System.out.println("LogParser Error: " + ex.getMessage());
-            ex.printStackTrace();
+            logger.error("LogParser Error: ", ex);
         }
 
         return result;
@@ -72,20 +75,20 @@ public class LogParser {
      */
     private void validateEntry(String lineContent, Integer line, RequestEntity req) {
         if (!req.validFieldsExist()) {
-            System.out.println("Line: " + line + ", Request could not be parsed, Request string: " + lineContent);
+            logger.warn("Line: {}}, Request could not be parsed, Request string: {}", line, lineContent);
         }
         else {
             if (!req.isHostValid())
-                System.out.println("Line: " + line + ", Invalid host: " + req.getHost() + ", Request string: \\" + lineContent);
+                logger.warn("Line: {}, Invalid host: {}, Request string: {}", line, req.getHost(), lineContent);
 
             if (!req.isHttpVerbValid())
-                System.out.println("Line: " + line + ", Invalid http verb: " + req.getHttpVerb() + ", Request string: \\" + lineContent);
+                logger.warn("Line: {}, Invalid http verb: {}, Request string: {}", line, req.getHttpVerb(), lineContent);
 
             if (!req.isResourceValid())
-                System.out.println("Line: " + line + ", Invalid resource: " + req.getResource() + ", Request string: \\" + lineContent);
+                logger.warn("Line: {}, Invalid resource: {}, Request string: {}", line, req.getResource(), lineContent);
 
             if (!req.isResponseCodeValid())
-                System.out.println("Line: " + line + ", Invalid response code: " + req.getResponseCode() + ", Request string: \\" + lineContent);
+                logger.warn("Line: {}, Invalid response code: {}, Request string: {}", line, req.getResponseCode(), lineContent);
         }
     }
 }

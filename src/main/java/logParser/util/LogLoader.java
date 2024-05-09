@@ -2,6 +2,8 @@ package logParser.util;
 
 import lombok.NoArgsConstructor;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +35,8 @@ public class LogLoader {
     @Value("${logGetter.out.local.path}")
     private String localPath;
 
+    private static final Logger logger = LogManager.getLogger(LogLoader.class);
+
     public byte[] loadLogs() {
         byte[] bytes = null;
 
@@ -60,8 +64,7 @@ public class LogLoader {
             inputStream.close();
 
         } catch (IOException ex) {
-            System.out.println("LogLoader Error: " + ex.getMessage());
-            ex.printStackTrace();
+            logger.error("LogLoader Error: ", ex);
         } finally {
             try {
                 if (ftpClient.isConnected()) {
@@ -69,7 +72,7 @@ public class LogLoader {
                     ftpClient.disconnect();
                 }
             } catch (IOException ex) {
-                ex.printStackTrace();
+                logger.error("LogLoader Error: ", ex);
             }
         }
 

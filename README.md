@@ -42,14 +42,15 @@ Swagger is available here:
 - http://localhost:8080/swagger-ui/index.html
 
 ## Dependencies
-- [Spring Boot 3.2.4](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter/3.2.4)
-- [Apache Commons Net 3.10.0](https://mvnrepository.com/artifact/commons-net/commons-net/3.10.0)
-- [JSON Small and Fast Parser 2.5.1](https://mvnrepository.com/artifact/net.minidev/json-smart/2.5.1)
-- [Project Lombok 1.18.32](https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.32)
-- [SpringDoc OpenAPI Starter WebMVC UI 2.5.0](https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui/2.5.0)
-- [SpringDoc OpenAPI Javadoc 1.8.0](https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-javadoc/1.8.0)
-- [Therapi Runtime Javadoc Scribe 0.15.0](https://mvnrepository.com/artifact/com.github.therapi/therapi-runtime-javadoc-scribe/0.15.0)
-- [H2 Database Engine 2.2.224](https://mvnrepository.com/artifact/com.h2database/h2/2.2.224)
+- [Spring Boot, 3.2.4](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter/3.2.4)
+- [Spring Boot Starter Log4j2, 3.2.4](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-log4j2/3.2.4)
+- [Apache Commons Net, 3.10.0](https://mvnrepository.com/artifact/commons-net/commons-net/3.10.0)
+- [JSON Small and Fast Parser, 2.5.1](https://mvnrepository.com/artifact/net.minidev/json-smart/2.5.1)
+- [Project Lombok, 1.18.32](https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.32)
+- [SpringDoc OpenAPI Starter WebMVC UI, 2.5.0](https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui/2.5.0)
+- [SpringDoc OpenAPI Javadoc, 1.8.0](https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-javadoc/1.8.0)
+- [Therapi Runtime Javadoc Scribe, 0.15.0](https://mvnrepository.com/artifact/com.github.therapi/therapi-runtime-javadoc-scribe/0.15.0)
+- [H2 Database Engine, 2.2.224](https://mvnrepository.com/artifact/com.h2database/h2/2.2.224)
 
 ## Assumptions
 - We care about the speed of each response more than we care about having updated data, thus the log file is downloaded and unzipped only once, during application start.

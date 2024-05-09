@@ -6,6 +6,8 @@ import logParser.dataModel.RequestEntity;
 import logParser.repository.RequestRepository;
 import logParser.util.StatisticsCalculator;
 import net.minidev.json.JSONArray;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,12 +27,14 @@ public class LogController {
 
     private StatisticsContainer data;
 
+    private static final Logger logger = LogManager.getLogger(LogController.class);
+
     @PostConstruct
     public void initialize() {
-        System.out.println("Retrieving requests from H2 database ...");
+        logger.info("Retrieving requests from H2 database ...");
         List<RequestEntity> result = StreamSupport.stream(requestRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
-        System.out.println("Creating base StatisticsContainer ...");
+        logger.info("Creating base StatisticsContainer ...");
 
         if (!result.isEmpty()) {
             data = StatisticsCalculator.createBaseStatisticsContainer(result);
@@ -41,7 +45,7 @@ public class LogController {
             data.setTop10FailedResources(StatisticsCalculator.getFrequentlyFailingResources(data.getFailedResourcesSortedByFrequency()));
             data.setTop10HostRequests(StatisticsCalculator.getFrequentRequestsPerHost(data.getTop10HostResources()));
         }
-        System.out.println("Controller initialized");
+        logger.info("Controller initialized");
     }
 
     /**
